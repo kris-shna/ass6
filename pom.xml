@@ -31,14 +31,24 @@
         </dependency>
     </dependencies>
 
-    <build>
+        <build>
+        <!-- Explicitly routing Maven to find your custom compressed folders layout -->
+        <sourceDirectory>${project.basedir}/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/test/java</testSourceDirectory>
+        
         <plugins>
             <!-- Maven Surefire Plugin to execute unit tests during Jenkins test stage -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
