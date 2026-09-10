@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.x' 
-        jdk 'Java 21'     
+        maven 'Maven 3.x' // References the Maven name in Jenkins Global Tools
+        jdk 'Java 21'     // References your Java 21 system path configuration
     }
 
     stages {
@@ -15,32 +15,39 @@ pipeline {
         
         stage('Sanitize Environment') {
             steps {
-                sh 'mvn clean validate'
+                // CHANGED: Used bat instead of sh for Windows compatibility
+                bat 'mvn clean validate'
             }
         }
 
         stage('Source Compilation') {
             steps {
-                sh 'mvn compile'
+                // CHANGED: Used bat instead of sh
+                bat 'mvn compile'
             }
         }
 
         stage('Execute Core Test Suite') {
             steps {
-                sh 'mvn test'
+                // CHANGED: Used bat instead of sh
+                bat 'mvn test'
             }
         }
 
         stage('Binary Packaging') {
             steps {
-                sh 'mvn package -DskipTests'
+                // CHANGED: Used bat instead of sh
+                bat 'mvn package -DskipTests'
             }
         }
     }
 
     post {
         always {
+            // Parses Surefire generated test results reporting pipelines directly onto the Jenkins project landing grid
             junit '**/target/surefire-reports/*.xml'
+            
+            // Archives build artifacts safely for direct operational distribution
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
         success {
