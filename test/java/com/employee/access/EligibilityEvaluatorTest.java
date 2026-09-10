@@ -1,4 +1,4 @@
-package com.example.access;
+package com.employee.access;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,12 +31,10 @@ public class EligibilityEvaluatorTest {
 
     @Test
     public void testMultipleFailureScenario() {
-        // Violating age, department whitelist, status flag, and ID token criteria concurrently.
         Employee emp = new Employee("E-ERR-04", "Invalid Entity", 18, "Logistics", "Terminated", 1, false);
         EligibilityEvaluator.EvaluationResult res = EligibilityEvaluator.evaluate(emp, 3);
         
         assertEquals("Not Eligible", res.status);
-        // Assert that the pipeline collected all 4 errors down the chain
         assertEquals(4, res.reasons.size());
     }
 }

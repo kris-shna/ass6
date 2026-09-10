@@ -1,4 +1,4 @@
-package com.example.access;
+package com.employee.access;
 
 public class Employee {
     private String id;
@@ -19,7 +19,6 @@ public class Employee {
         this.isIdValid = isIdValid;
     }
 
-    // Getters and Encapsulation Boundary
     public String getId() { return id; }
     public String getName() { return name; }
     public int getAge() { return age; }

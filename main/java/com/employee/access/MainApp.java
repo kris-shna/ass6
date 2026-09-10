@@ -1,4 +1,4 @@
-vpackage com.example.access;
+package com.employee.access;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class MainApp {
                 System.out.print("Department (IT/HR/Finance/Administration): ");
                 String dept = scanner.nextLine().trim();
 
-                System.out.print("Status Status (Active/Suspended): ");
+                System.out.print("Status (Active/Suspended): ");
                 String type = scanner.nextLine().trim();
 
                 System.out.print("Security Tier Integer (1-5): ");
