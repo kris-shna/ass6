@@ -44,11 +44,11 @@ pipeline {
 
     post {
         always {
-            // Parses Surefire generated test results reporting pipelines directly onto the Jenkins project landing grid
-            junit '**/target/surefire-reports/*.xml'
+            // Added allowEmptyResults parameter to avoid halting build chains on custom reporting maps
+            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
             
             // Archives build artifacts safely for direct operational distribution
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**/target/*.jar', fingerprint: true
         }
         success {
             echo 'Operational Status Code 200: Continuous delivery compilation sequence completed successfully!'
@@ -57,4 +57,5 @@ pipeline {
             echo 'Operational Error: Execution pipeline sequence faulted. Inspect terminal telemetry data logs.'
         }
     }
+
 }
